@@ -1,0 +1,12 @@
+version: '3'
+services:
+  tomcat:
+    # will build tomcat
+    image: apache/tomcat9:latest
+    build: ./docker-tomcat
+    ports:
+      - "8080:8080"
+  chc:
+    # will build cluster healthy check
+    image: chc:latest
+    build: ./docker-chc

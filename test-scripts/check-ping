@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+. ./init
+
+if [[ -z $1 || -z $2 || -z $3 || -z $4 ]]; then
+  echo -e "\nUsage: check-ping [IP_ADDRESS] [PORT] [PARALLEL_REQUEST_SIZE] [SEQ_DELAY]"
+  echo -e "Example: check-ping 172.17.0.2 8080 10 5\n"
+  exit 1
+fi
+
+
+while true; do 
+  for I in $(seq 1 "${PARALLEL_SIZE}"); do
+    curl -s http://"${SERVER_HOST_NAME}:${SERVER_PORT}"/api/v1/ping &
+  done 
+  sleep "${SEQ_DELAY}"
+  echo "-------------------------------------------------"
+done

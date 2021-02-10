@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SC_NAME=$(basename "$0")
+
+kill_curl() {
+	ps fax | pgrep -i curl | awk '{print $1}' | xargs kill -9
+	killall -v -9 ${SC_NAME}
+}
+
+trap kill_curl SIGTERM SIGQUIT SIGINT > /dev/null
+
+SERVER_HOST_NAME=$1
+SERVER_PORT=$2
+PARALLEL_SIZE=$3
+SEQ_DELAY=$4
