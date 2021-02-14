@@ -4,9 +4,9 @@
 
 MILL_SEC=$( echo "$4 * 1000" | bc)
 
-for I in $(seq 1 $3)
+for I in $(seq 1 "$3")
 do 
-		curl http://$1:$2/api/v1/process?delay=${MILL_SEC} &
+		curl http://"$1":"$2"/api/v1/process?delay="${MILL_SEC}" &
 done
 
-sleep $4
+sleep "$4"

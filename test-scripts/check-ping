@@ -12,7 +12,10 @@ fi
 
 while true; do 
   for I in $(seq 1 "${PARALLEL_SIZE}"); do
-    curl -s http://"${SERVER_HOST_NAME}:${SERVER_PORT}"/api/v1/ping &
+    COUNT=$(get_process_count "${SERVER_HOST_NAME}")
+    if [[ $COUNT -lt "${PARALLEL_SIZE}" ]] ; then
+      curl -s http://"${SERVER_HOST_NAME}:${SERVER_PORT}"/api/v1/ping &
+    fi
   done 
   sleep "${SEQ_DELAY}"
   echo "-------------------------------------------------"
